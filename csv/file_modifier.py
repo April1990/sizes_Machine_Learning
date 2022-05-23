@@ -46,4 +46,5 @@ if __name__ == '__main__':
 
 ''''
 df_female = pd.read_csv('female.csv' usecols=f_tshirts, index_col=None, encoding='utf-8')
+('modified_male_tshirts.csv', columns=m_tshirts, encoding='utf-8', index=False)
 '''
