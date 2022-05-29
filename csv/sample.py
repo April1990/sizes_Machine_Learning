@@ -13,7 +13,11 @@ def female_top_clothing():
     df_female.rename(columns={"chestcircumference": "chest", "waistcircumference": "waist", "Heightin": "height", "Weightlbs": "weight", "Gender": "gender"}, inplace=True)
 
     for chest, waist in zip(df_female['chest'], df_female['waist']):
-        if chest <= 89:
+        if chest < 80:
+            if waist < 65:
+                size.append('XXS')
+
+        elif chest <= 89:
             if waist >= 68:
                 size.append('S')
 
@@ -27,9 +31,13 @@ def female_top_clothing():
             else:
                 size.append('M')
 
+        elif chest > 105:
+            if waist > 89:
+                size.append('XXL')
+
         elif chest <= 104:
             if waist >= 83:
-             size.append('XL')
+                size.append('XL')
 
             else:
                 size.append('L')
