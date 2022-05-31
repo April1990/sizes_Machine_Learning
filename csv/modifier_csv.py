@@ -25,6 +25,7 @@ if __name__ == '__main__':
 
 
 '''
+another way of changing the values of every column using pandas
     read_file['Heightin'] = read_file['Heightin'].multiply(2.54)
     read_file['Weightlbs'] = read_file['Weightlbs'].multiply(0.45359237)
     read_file['chestcircumference'] = read_file['chestcircumference'].multiply(0.1)
