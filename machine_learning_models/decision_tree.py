@@ -1,66 +1,53 @@
 import DecisionTree as DecisionTree
+from sklearn import *
 import numpy as np
 import pandas as pd
 from sklearn.metrics import r2_score
+import DecisionTree as DecisionTree
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeRegressor
+from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
 
 
 def female_tshirt():
-
-    dataset = pd.read_csv(r'../csv/modified_female_tshirts.csv')
+    dataset = pd.read_csv(r'../csv/modified_female_shirts.csv')
     dataset.loc[:, 'gender'] = 1
 
-    X_female = dataset.iloc[0:, 2:5].values
-    Y_female = dataset.iloc[0:, 0:1].values
+    for column in dataset.columns:
+        if dataset[column].dtype == type(object):
 
-    X_train_female, Y_train_female,  X_test_female, Y_test_female = train_test_split(X_female, Y_female, test_size=0.5, random_state=0)
+            label_encoder = LabelEncoder()
+            dataset[column] = label_encoder.fit_transform(dataset[column])
 
-    decision_tree_female = DecisionTreeRegressor()
+    X = dataset.iloc[0:, 3:6].values
+    y = dataset.iloc[0:, -1].values
 
-    decision_tree_female.fit(X_train_female, Y_train_female)
-    decision_tree_female.fit(X_test_female, Y_test_female)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.5)
 
-    #y_predict_female = decision_tree_female.predict(X_test_female).reshape((-1, 1))
+    X_train1 = np.reshape(X_train, (-1, 1))
+    y_train1 = np.reshape(y_train, (-1, 1))
 
-    #r_square = r2_score(Y_test_female, y_predict)
+    X_test1 = np.reshape(X_test, (-1, 1))
+    y_test1 = np.reshape(y_test, (-1, 1))
 
-    return decision_tree_female
+    clf_dt = DecisionTreeRegressor(random_state=42)
+    clf_dt = clf_dt.fit(X_train1, y_train1)
+    training_sets = []
 
+    for i in range(1, 10):
+        #X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=i, test_size=0.55)
+        training_sets.append([X_train1, X_test1, y_train1, y_test1])
+    person = [[85, 65, 55]]
+    clf_dt.predict(person)
 
-def male_tshirt():
-
-    dataset = pd.read_csv(r'../csv/modified_male_tshirts.csv')
-    dataset.loc[:, 'gender'] = 0
-
-    X_male = dataset.iloc[0:, 2:5].values
-    Y_male = dataset.iloc[0:, 0:1].values
-
-    X_train_male, Y_train_male,  X_test_male, Y_test_male = train_test_split(X_male, Y_male, test_size=0.5, random_state=0)
-
-    decision_tree_male = DecisionTreeRegressor()
-
-    decision_tree_male.fit(X_train_male, Y_train_male)
-    decision_tree_male.fit(X_test_male, Y_test_male)
-
-    #y_predict_male = decision_tree_male.predict(X_test_male).reshape((-1, 1))
-    #r_square = r2_score(Y_test_male, y_predict)
-
-    return decision_tree_male
+    return person
 
 
 if __name__ == '__main__':
     female_tshirt()
-    male_tshirt()
-
 
 '''    
-    X_train_male1 = np.reshape(X_train_male, (-1, 1))
-    Y_train_male1 = np.reshape(Y_train_male, (-1, 1))
-
-    X_test_male1 = np.reshape(X_test_male, (-1, 1))
-    Y_test_male1 = np.reshape(Y_test_male, (-1, 1))
-    
-    transform_y_predict = y_predict.reshape((-1, 1))
+    X = dataset[['waist(cm)', 'height(cm)', 'weight(kg)']].values
+    y = dataset[['chest(cm)']].values
+    dataset.loc[:, 'gender'] = 1
 '''

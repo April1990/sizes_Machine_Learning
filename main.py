@@ -9,6 +9,11 @@ from tkinter_templates import tkinter
 from tkinter_templates.tkinter import window
 
 
+
+if __name__ == '__main__':
+
+
+'''
 def female_tshirt_prediction():
     entry1 = tkinter.height_label()
     height1 = entry1.get()
@@ -49,4 +54,4 @@ if __name__ == '__main__':
     weight_tshirt_predict()
     gender_tshirt_predict()
     trans_variables()
-
+'''
