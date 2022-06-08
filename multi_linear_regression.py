@@ -1,23 +1,27 @@
-import numpy as np
-import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+from tkinter import  *
+from tkinter_templates.tkinter import window
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder, LabelBinarizer
+import pandas as pd
+import numpy as np
 
 dataset = pd.read_csv(r'csv/modified_male_female.csv')
 for column in dataset.columns:
     if dataset[column].dtype == type(object):
+
         label_encoder = LabelEncoder()
         dataset[column] = label_encoder.fit_transform(dataset[column])
 
-x = dataset.drop('size', axis=1).values
+X = dataset.drop('size', axis = 1).values
 y = dataset['size'].values
 
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 42, test_size = .5)
 
-X_train, Y_train,  X_test, Y_test = train_test_split(x, y, test_size=0.5, random_state=0)
+linear = LinearRegression()
+linear.fit(X_train, y_train)
 
-linear_regressor = LinearRegression()
-linear_regressor.fit(X_train, Y_train)
+model_predict = linear.predict(X_test)
 
 
 def main():
@@ -29,9 +33,8 @@ def main():
     gender1 = input('Press 1 for Male or 0 for Female: ')
     gender = int(gender1)
 
-    trans_variable = np.array([[height, weight, gender]])
-    pred_size = linear_regressor.predict(trans_variable)
-    pred_size = str(pred_size)
+    trans_variable = [[height, weight, gender]]
+    pred_size = linear.predict(trans_variable)
     print(pred_size)
 
 
