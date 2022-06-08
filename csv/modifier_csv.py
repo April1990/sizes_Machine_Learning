@@ -1,45 +1,42 @@
 import pandas as pd
 
-df_female = pd.read_csv('female.csv')
-df_male = pd.read_csv('male.csv')
+df = pd.read_csv('merge_male_female.csv')
 
 
 def female_top_clothing():
-    df_female.rename(columns={"chestcircumference": "chest(cm)", "waistcircumference": "waist(cm)", "Heightin": "height(cm)",
+
+    df.rename(columns={"chestcircumference": "chest(cm)", "waistcircumference": "waist(cm)", "Heightin": "height(cm)",
                               "Weightlbs": "weight(kg)", "Gender": "gender"}, inplace=True)
 
-    df_female.loc[:, 'height(cm)'] *= 2.54
-    df_female.loc[:, 'weight(kg)'] *= 0.45359237
-    df_female.loc[:, 'chest(cm)'] *= 0.1
-    df_female.loc[:, 'waist(cm)'] *= 0.1
+    df.loc[:, 'height(cm)'] *= 2.54
+    df.loc[:, 'weight(kg)'] *= 0.45359237
+    df.loc[:, 'chest(cm)'] *= 0.1
+    df.loc[:, 'waist(cm)'] *= 0.1
 
-    df_female.loc[(df_female['chest(cm)'] < 79), 'size'] = 'XXS'
-    df_female.loc[(df_female['waist(cm)'] < 74), 'size'] = 'XXS'
-    df_female.loc[(df_female['chest(cm)'] >= 79) & (df_female['chest(cm)'] < 81), 'size'] = 'XS'
-    df_female.loc[(df_female['waist(cm)'] >= 74) & (df_female['waist(cm)'] < 76), 'size'] = 'XS'
-    df_female.loc[(df_female['chest(cm)'] >= 81) & (df_female['chest(cm)'] < 91), 'size'] = 'S'
-    df_female.loc[(df_female['waist(cm)'] >= 76) & (df_female['waist(cm)'] < 81), 'size'] = 'S'
-    df_female.loc[(df_female['chest(cm)'] >= 91) & (df_female['chest(cm)'] < 102), 'size'] = 'M'
-    df_female.loc[(df_female['waist(cm)'] >= 81) & (df_female['waist(cm)'] < 84), 'size'] = 'M'
-    df_female.loc[(df_female['chest(cm)'] >= 102) & (df_female['chest(cm)'] < 112), 'size'] = 'L'
-    df_female.loc[(df_female['waist(cm)'] >= 84) & (df_female['waist(cm)'] < 87), 'size'] = 'L'
-    df_female.loc[(df_female['chest(cm)'] >= 112) & (df_female['chest(cm)'] < 122), 'size'] = 'XL'
-    df_female.loc[(df_female['waist(cm)'] >= 87) & (df_female['waist(cm)'] < 97), 'size'] = 'XL'
-    df_female.loc[(df_female['chest(cm)'] >= 122) & (df_female['chest(cm)'] < 127), 'size'] = 'XXL'
-    df_female.loc[(df_female['waist(cm)'] >= 97) & (df_female['waist(cm)'] < 107), 'size'] = 'XXL'
-    df_female.loc[(df_female['chest(cm)'] > 127), 'size'] = '3XL'
-    df_female.loc[(df_female['waist(cm)'] > 122), 'size'] = '3XL'
+    df.loc[(df['chest(cm)'] < 79), 'size'] = 'XX-Small'
+    df.loc[(df['waist(cm)'] < 74), 'size'] = 'XX-Small'
+    df.loc[(df['chest(cm)'] >= 79) & (df['chest(cm)'] < 81), 'size'] = 'X-Small'
+    df.loc[(df['waist(cm)'] >= 74) & (df['waist(cm)'] < 76), 'size'] = 'X-Small'
+    df.loc[(df['chest(cm)'] >= 81) & (df['chest(cm)'] < 91), 'size'] = 'Small'
+    df.loc[(df['waist(cm)'] >= 76) & (df['waist(cm)'] < 81), 'size'] = 'Small'
+    df.loc[(df['chest(cm)'] >= 91) & (df['chest(cm)'] < 102), 'size'] = 'Medium'
+    df.loc[(df['waist(cm)'] >= 81) & (df['waist(cm)'] < 84), 'size'] = 'Medium'
+    df.loc[(df['chest(cm)'] >= 102) & (df['chest(cm)'] < 112), 'size'] = 'Large'
+    df.loc[(df['waist(cm)'] >= 84) & (df['waist(cm)'] < 87), 'size'] = 'Large'
+    df.loc[(df['chest(cm)'] >= 112) & (df['chest(cm)'] < 122), 'size'] = 'X-Large'
+    df.loc[(df['waist(cm)'] >= 87) & (df['waist(cm)'] < 97), 'size'] = 'XL-Large'
+    df.loc[(df['chest(cm)'] >= 122) & (df['chest(cm)'] < 127), 'size'] = 'XX-Large'
+    df.loc[(df['waist(cm)'] >= 97) & (df['waist(cm)'] < 107), 'size'] = 'XX-Large'
+    df.loc[(df['chest(cm)'] > 127), 'size'] = '3X-Large'
+    df.loc[(df['waist(cm)'] > 122), 'size'] = '3X-Large'
 
     f_tshirt = ['height(cm)', 'weight(kg)', 'gender', 'size']
-    modified_female_tshirt = df_female.to_csv('modified_female_shirts.csv', columns = f_tshirt, encoding = 'utf-8', index = False)
+    modified_female_tshirt = df.to_csv('modified_male_female.csv', columns = f_tshirt, encoding = 'utf-8', index = False)
     return modified_female_tshirt
 
 
 if __name__ == '__main__':
     female_top_clothing()
-
-#df.loc[df['gender'] == 'Male', 'gender'] = 1
-#df.loc[df['gender'] == 'Female', 'gender'] = 0
 
 
 '''
@@ -99,7 +96,7 @@ def top_clothing(read_file, write_file):
 
 
 if __name__ == '__main__':
-    top_clothing(read_file=df_female, write_file='modified_female_shirts.csv')
+    top_clothing(read_file=df_female, write_file='modified_male_female.csv')
     top_clothing(read_file=df_male, write_file='modified_male_shirts.csv')
 
 *************************************************************************************
