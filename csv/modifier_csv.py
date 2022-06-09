@@ -126,46 +126,5 @@ for chest, waist in zip(read_file['chest(cm)'], read_file['waist(cm)']):
                 size.append('XXL')
         elif 127 >= chest >= 132:
             if 107 >= waist >= 122:
-                size.append('3XL')
-                
-**********************************************************
-
-        for chest, waist in zip(read_file['chest(cm)'], read_file['waist(cm)']):
-
-            if chest <= 79:
-                if waist > 68:
-                    size.append('XS')
-
-                size.append('XXS')
-
-            elif chest <= 1020:
-                if waist <= 840:
-                    size.append('M')
-
-                else:
-                    size.append('S')
-
-            elif chest <= 1220:
-                if waist >= 970:
-                    size.append('XL')
-
-                else:
-                    size.append('L')
-
-            elif chest <= 1320:
-                if waist >= 1220:
-                    size.append('3XL')
-
-                else:
-                    size.append('XXL')
-        read_file['size'] = pd.Series(size)       
-***********************************************************************
-    read_file[(read_file['chest(cm)'] < 79), 'size'] = 'XXS'
-    read_file[(read_file['chest(cm)'] >= 79) & (read_file['chest(cm)'] < 81), 'size'] = 'XS'
-    read_file[(read_file['chest(cm)'] >= 81) & (read_file['chest(cm)'] < 91), 'size'] = 'S'
-    read_file[(read_file['chest(cm)'] >= 91) & (read_file['chest(cm)'] < 102), 'size'] = 'M'
-    read_file[(read_file['chest(cm)'] >= 102) & (read_file['chest(cm)'] < 112), 'size'] = 'L'
-    read_file[(read_file['chest(cm)'] >= 112) & (read_file['chest(cm)'] < 122), 'size'] = 'XL'
-    read_file[(read_file['chest(cm)'] >= 122) & (read_file['chest(cm)'] < 127), 'size'] = 'XXL'
-    read_file[(read_file['chest(cm)'] > 127), 'size'] = '3XL'                 
+                size.append('3XL')     
 '''
