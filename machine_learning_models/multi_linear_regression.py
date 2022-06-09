@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 import pandas as pd
 import numpy as np
 
-dataset = pd.read_csv(r'csv/modified_male_female.csv')
+dataset = pd.read_csv(r'../csv/modified_male_female.csv')
 for column in dataset.columns:
     if dataset[column].dtype == type(object):
 
